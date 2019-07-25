@@ -43,6 +43,15 @@ $ HOST_UID=$(id -u) HOST_GID=$(id -g) docker-compose up -d
       - ${HOME}/.composer:/home/user/.composer
 ```
 
+## コンテナ内でcomposer installする場合
+```
+$ docker exec -it <CONTAINER> bash
+# su - user
+[user@xxxxxxxx]$ cd /usr/share/nginx/html/
+[user@xxxxxxxx]$ composer install --no-dev
+
+```
+
 ## コマンド
 ```shell
 $ docker-compose build --force
