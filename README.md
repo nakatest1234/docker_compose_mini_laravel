@@ -25,6 +25,11 @@
 ```
 
 # メモつらつら
+## 前提
+- nginx-proxyが前提です
+- networkはnginx-proxyと同じにしてください
+- nginx-proxyを通し同ホスト上で複数人複数ドメインが可能なはず
+
 ## .envのCOMPOSE_PROJECT_NAMEはコンテナ名に使われます
 ```ini
         COMPOSE_PROJECT_NAME: project_name
