@@ -1,0 +1,64 @@
+server {
+    listen       80;
+    server_name  _;
+
+    charset      utf-8;
+    root         /usr/share/nginx/html/public;
+
+    client_max_body_size     32M;
+    client_body_buffer_size   4M;
+
+    #chunked_transfer_encoding off;
+
+    location = /healthcheck.gif {
+        access_log off;
+        empty_gif;
+        break;
+    }
+
+    location = /favicon.ico {
+        access_log off;
+        log_not_found off;
+    }
+
+    location = /robots.txt {
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~ ^/apple-touch-icon.*.png {
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~ \.(?:txt|css|js|jpe?g|gif|png|csv|xml)$ {
+        limit_req zone=file burst=50 nodelay;
+        access_log off;
+        expires 1h;
+    }
+
+    location / {
+        index  index.php index.html;
+
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location @handler {
+        rewrite ^ /index.php?/$request_uri;
+    }
+
+    location ~ \.php$ {
+        root                    /usr/share/nginx/html/public;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass            php-fpm:9000;
+        fastcgi_index           index.php;
+        fastcgi_param           SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include                 fastcgi_params;
+    }
+}
