@@ -49,10 +49,6 @@ server {
         try_files $uri $uri/ /index.php?$query_string;
     }
 
-    location @handler {
-        rewrite ^ /index.php?/$request_uri;
-    }
-
     location ~ \.php$ {
         root                    /usr/share/nginx/html/public;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
