@@ -40,6 +40,12 @@
 ```shell
 $ HOST_UID=$(id -u) HOST_GID=$(id -g) docker-compose up -d
 ```
+- 環境変数~/を.bash_profileで設定しておく(下記追記)
+```bash
+export HOST_UID=$(id -u)
+export HOST_GID=$(id -g)
+```
+
 ## きちんとユーザ指定してコンテナ起動したら、php composerのキャッシュをホストと同期可能
 - ホストの~/.composerとコンテナの~user/composerを繋いでcomposerをキャッシュも問題なくなる
 ```ini
