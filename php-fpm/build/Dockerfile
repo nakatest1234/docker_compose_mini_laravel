@@ -8,7 +8,6 @@ RUN amazon-linux-extras install -y php7.2=7.2.17 \
   && echo 'apc.filters="^phar://"' >> /etc/php.d/40-apcu.ini \
   && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
   && chmod +x /docker-entrypoint.sh \
-  && mkdir -p /usr/share/nginx/html \
   && useradd -m user \
   && yum clean all -q
 
