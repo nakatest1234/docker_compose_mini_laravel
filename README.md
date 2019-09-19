@@ -57,7 +57,7 @@ export HOST_GID=$(id -g)
 ## コンテナ内でcomposer installする場合
 ```
 $ docker exec -it <CONTAINER> bash
-# su - user
+# su user
 [user@xxxxxxxx]$ cd /usr/share/nginx/html/
 [user@xxxxxxxx]$ composer install --no-dev
 
