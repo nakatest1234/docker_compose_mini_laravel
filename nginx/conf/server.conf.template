@@ -5,20 +5,6 @@ server {
     charset      utf-8;
     root         /var/www/html/public;
 
-    client_max_body_size     32M;
-    client_body_buffer_size   4M;
-
-    #chunked_transfer_encoding off;
-
-    # Clickjacking
-    add_header X-Frame-Options SAMEORIGIN always;
-
-    # XSS filter
-    add_header X-XSS-Protection "1; mode=block" always;
-
-    # no Sniff
-    add_header X-Content-Type-Options nosniff always;
-
     #if ($http_x_forwarded_proto != https) {
     #    rewrite ^(.*) https://$http_host$1 last;
     #}
@@ -63,11 +49,10 @@ server {
     }
 
     location ~ \.php$ {
-        root                    /var/www/html/public;
+        include                 fastcgi_params;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
         fastcgi_pass            php-fpm:9000;
         fastcgi_index           index.php;
         fastcgi_param           SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-        include                 fastcgi_params;
     }
 }
